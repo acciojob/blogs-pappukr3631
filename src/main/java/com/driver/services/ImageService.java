@@ -21,19 +21,26 @@ public class ImageService {
         Image image = new Image();
         image.setDescription(description);
         image.setDimensions(dimensions);
-
+        //Get blog
         Blog blog = blogRepository2.findById(blogId).get();
         image.setBlog(blog);
         imageRepository2.save(image);
+        //Save image in blog list
+        List<Image> imageList = blog.getImageList();
+        imageList.add(image);
+        //Save blog in blog repo.
+        blogRepository2.save(blog);
         return image;
     }
 
     public void deleteImage(Integer id){
-        Image image = imageRepository2.findById(id).get();
-        List<Image> imageList = image.getBlog().getImageList();
-        imageList.remove(image);
-        //2nd place:- maybe have to save list again
-        imageRepository2.deleteById(id);
+        if(imageRepository2.findById(id).isPresent()) {
+            Image image = imageRepository2.findById(id).get();
+            List<Image> imageList = image.getBlog().getImageList();
+            imageList.remove(image);
+            //2nd place:- maybe have to save list again
+            imageRepository2.deleteById(id);
+        }
     }
 
     public int countImagesInScreen(Integer id, String screenDimensions) {
@@ -42,8 +49,8 @@ public class ImageService {
         String iDimension[] = imgDimension.split("X");
         String sDimension[] = screenDimensions.split("X");
         //It's not correct. But still trying
-        int idim = Integer.parseInt(iDimension[0]) * Integer.parseInt(iDimension[1]);
-        int sdim = Integer.parseInt(sDimension[0]) * Integer.parseInt(sDimension[1]);
-        return sdim/idim;
+        int idim = Integer.parseInt(sDimension[0]) / Integer.parseInt(iDimension[0]);
+        int sdim =  Integer.parseInt(sDimension[1]) / Integer.parseInt(iDimension[1]);
+        return sdim*idim;
     }
 }
