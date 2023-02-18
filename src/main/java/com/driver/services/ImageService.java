@@ -35,12 +35,16 @@ public class ImageService {
 
     public void deleteImage(Integer id){
 //        if(imageRepository2.findById(id).isPresent()) {
+        try{
             Image image = imageRepository2.findById(id).get();
             List<Image> imageList = image.getBlog().getImageList();
             imageList.remove(image);
             //2nd place:- maybe have to save list again
             imageRepository2.deleteById(id);
-//        }
+        }
+        catch (Exception e) {
+            return;
+        }
     }
 
     public int countImagesInScreen(Integer id, String screenDimensions) {
