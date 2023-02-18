@@ -9,8 +9,6 @@ import com.driver.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -49,7 +47,7 @@ public class BlogService {
         List<Image> imageList = blogRepository1.findById(blogId).get().getImageList();
         for(Image i : imageList)
         {
-            int imgId = i.getImageId();
+            int imgId = i.getId();
             imageRepository.deleteById(imgId);
         }
         //2. Delete blog from user blog-list

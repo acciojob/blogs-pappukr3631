@@ -20,7 +20,7 @@ public class ImageService {
         //Create an image object
         Image image = new Image();
         image.setDescription(description);
-        image.setDimension(dimensions);
+        image.setDimensions(dimensions);
 
         Blog blog = blogRepository2.findById(blogId).get();
         image.setBlog(blog);
@@ -38,7 +38,7 @@ public class ImageService {
 
     public int countImagesInScreen(Integer id, String screenDimensions) {
         //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
-        String imgDimension = imageRepository2.findById(id).get().getDimension();
+        String imgDimension = imageRepository2.findById(id).get().getDimensions();
         String iDimension[] = imgDimension.split("X");
         String sDimension[] = screenDimensions.split("X");
         //It's not correct. But still trying

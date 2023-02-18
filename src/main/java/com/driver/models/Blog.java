@@ -9,10 +9,10 @@ import java.util.List;
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int blogId;
+    private int id;
     private String title;
     private String content;
-    private Date publishDate;
+    private Date pubDate;
 
     //Connecting to User
     //This is child class for User
@@ -28,15 +28,15 @@ public class Blog {
 
     public Blog() {
         imageList = new ArrayList<>();
-        publishDate = new Date();
+        pubDate = new Date();
     }
 
-    public int getBlogId() {
-        return blogId;
+    public int getId() {
+        return id;
     }
 
-    public void setBlogId(int blogId) {
-        this.blogId = blogId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -55,12 +55,12 @@ public class Blog {
         this.content = content;
     }
 
-    public Date getPublishDate() {
-        return publishDate;
+    public Date getPubDate() {
+        return pubDate;
     }
 
-    public void setPublishDate(Date publishDate) {
-        this.publishDate = publishDate;
+    public void setPubDate(Date pubDate) {
+        this.pubDate = pubDate;
     }
 
     public User getUser() {
