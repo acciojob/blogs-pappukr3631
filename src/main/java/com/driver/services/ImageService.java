@@ -34,11 +34,13 @@ public class ImageService {
     }
 
     public void deleteImage(Integer id){
-        Image image = imageRepository2.findById(id).get();
+        if(imageRepository2.findById(id).isPresent()) {
+            Image image = imageRepository2.findById(id).get();
 
-        Blog blog = image.getBlog();
-        List<Image> imageList = blog.getImageList();
-        imageList.remove(image);
+            Blog blog = image.getBlog();
+            List<Image> imageList = blog.getImageList();
+            imageList.remove(image);
+        }
 //        blogRepository2.save(blog);
         //2nd place:- maybe have to save list again
         imageRepository2.deleteById(id);

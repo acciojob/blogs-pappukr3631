@@ -40,21 +40,22 @@ public class BlogService {
         return blog;
     }
 
-    public void deleteBlog(int blogId){
+    public void deleteBlog(int blogId) {
         //delete blog and corresponding images
-        Blog blog = blogRepository1.findById(blogId).get();
-        //1. Delete corresponding images of the blog
-        List<Image> imageList = blog.getImageList();
-        if(imageList.size() != 0) {
-            for (Image i : imageList) {
-                imageRepository.deleteById(i.getId());
+        if(blogRepository1.findById(blogId).isPresent()) {
+            Blog blog = blogRepository1.findById(blogId).get();
+            //1. Delete corresponding images of the blog
+            List<Image> imageList = blog.getImageList();
+            if (imageList.size() != 0) {
+                for (Image i : imageList) {
+                    imageRepository.deleteById(i.getId());
+                }
             }
+            //2. Delete blog from user blog-list
+            List<Blog> blogList = blog.getUser().getBlogList();
+            blogList.remove(blog);
+            //save this updated list to author repo. or no need to?
         }
-        //2. Delete blog from user blog-list
-        List<Blog> blogList = blog.getUser().getBlogList();
-        blogList.remove(blog);
-        //save this updated list to author repo. or no need to?
-
         //Delete blog
         blogRepository1.deleteById(blogId);
     }
