@@ -24,7 +24,7 @@ public class ImageService {
         //Get blog
         Blog blog = blogRepository2.findById(blogId).get();
         image.setBlog(blog);
-        imageRepository2.save(image);
+//        imageRepository2.save(image);not required
         //Save image in blog list
         List<Image> imageList = blog.getImageList();
         imageList.add(image);
@@ -34,13 +34,13 @@ public class ImageService {
     }
 
     public void deleteImage(Integer id){
-        if(imageRepository2.findById(id).isPresent()) {
+//        if(imageRepository2.findById(id).isPresent()) {
             Image image = imageRepository2.findById(id).get();
             List<Image> imageList = image.getBlog().getImageList();
             imageList.remove(image);
             //2nd place:- maybe have to save list again
             imageRepository2.deleteById(id);
-        }
+//        }
     }
 
     public int countImagesInScreen(Integer id, String screenDimensions) {

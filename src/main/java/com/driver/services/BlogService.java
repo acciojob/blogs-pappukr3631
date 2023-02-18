@@ -42,7 +42,6 @@ public class BlogService {
 
     public void deleteBlog(int blogId){
         //delete blog and corresponding images
-        if(blogRepository1.findById(blogId).isPresent()) {
             //1. Delete corresponding images of the blog
             List<Image> imageList = blogRepository1.findById(blogId).get().getImageList();
             for (Image i : imageList) {
@@ -56,6 +55,5 @@ public class BlogService {
 
             //Delete blog
             blogRepository1.deleteById(blogId);
-        }
     }
 }
